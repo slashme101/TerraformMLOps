@@ -9,3 +9,16 @@ variable "azure_rg_name" {
   default = "ml-rg-krunetworx-dev"
   description = "Prefix of the resource group name that's combined with a random ID to make the name unique on azure subscription"
 }
+
+variable "application_insights_name" {
+  type = string
+
+}
+
+variable "key_vault_name" {
+  type = string
+}
+
+variable "storage_account_name" {
+  type = string
+}

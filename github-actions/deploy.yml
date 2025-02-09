@@ -1,0 +1,28 @@
+name: Deplloy ML Model to AKS
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set AKS Context
+        run: |
+          az aks get-credentials --resource-group mlops-rg --name mlops-aks --overwrite-existing
+
+      - name: Deploy Model to AKS
+        run: |
+          kubectl apply -f deployments/model-deployment.yml
